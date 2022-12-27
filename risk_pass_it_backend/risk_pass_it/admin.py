@@ -2,25 +2,36 @@ from django.contrib import admin
 
 from .models import *
 
+
+
+
+admin.site.register(Probability_Impact)
+admin.site.register(Probability)
+admin.site.register(Impact)
+admin.site.register(Department_Objective)
+admin.site.register(Department_Goal)
+admin.site.register(Department_Object)
+
 @admin.register(Risk)
-class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'price', 'quantity', 'description')
-    list_filter = ('name', 'price')
-    raw_id_fields = ('category', 'subcategory')
-    search_fields = ('name', 'price')
-    list_editable = ('price', 'quantity')
+class RiskAdmin(admin.ModelAdmin):
+    list_display = ('id', 'risk_name', 'risk_object')
+    list_filter = ('risk_name', 'risk_object')
+    #raw_id_fields = ('category', 'subcategory')
+    search_fields = ('risk_name', 'risk_object', 'departament__text', 'departament_goal__text', 'department_object__text', 'risk_description')
+    #list_editable = ('price', 'quantity')
     save_on_top = True
     save_as = True
     fieldsets = (
-        ('Настройка отображения товара', {
-            'fields': (('name', 'description', 'price', 'quantity', 'image_1'),)
+        ('Основные настройки риска', {
+            'fields': (('risk_name', 'risk_object',),)
         }),
-        ('Настройки категории', {
-            'fields': ('category', 'subcategory',)
+        ('Настройки департаментов', {
+            'fields': ('departament', 'departament_goal', 'department_object')
         }),
-        ('Изображения', {
-                     'classes': ('collapse',),
-                     'fields': (('image_2', 'image_3', 'image_4', 'image_5', 'image_6', 'image_7', 'image_8',
-                                 'image_9', 'image_10',),)
-                 }),
+        ('Настройки оценки риска', {
+            'fields': ('probability', 'impact')
+        }),
+        ('Настройки', {
+            'fields': ('risk_description', 'probability_max', 'risk_owner', 'registration_date')
+        }),
     )

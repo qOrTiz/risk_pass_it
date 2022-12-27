@@ -8,8 +8,8 @@ class Probability_Impact(models.Model):
         return self.text
 
     class Meta:
-        verbose_name = "Risk"
-        verbose_name_plural = "Risks"
+        verbose_name = "Probability_Impact"
+        verbose_name_plural = "Probability_Impact"
 
 
 class Probability(models.Model):
@@ -19,7 +19,7 @@ class Probability(models.Model):
     text = models.TextField("Text", help_text="Текст", default="0")
 
     def __str__(self):
-        return self.name
+        return self.text
 
     class Meta:
         verbose_name = "Probability"
@@ -33,11 +33,11 @@ class Impact(models.Model):
     text = models.TextField("Text", help_text="Текст", default="0")
 
     def __str__(self):
-        return self.name
+        return self.text
 
     class Meta:
-        verbose_name = "Probability"
-        verbose_name_plural = "Probability"
+        verbose_name = "Impact"
+        verbose_name_plural = "Impact"
 
 
 class Department_Objective(models.Model):
@@ -93,14 +93,14 @@ class Risk(models.Model):
                             help_text="Макс вероятность появения причины", on_delete=models.CASCADE)
     risk_owner = models.TextField("probability_max",
                             help_text="Название подразделения")
-    registration_date = models.CharField("registration_date", max_length=200,
-                            help_text="Дата регистрации риска")
+    registration_date = models.DateField("registration_date", 
+                            help_text="Дата регистрации риска") 
     
     probability = models.ManyToManyField(Probability, verbose_name="probability")
     impact = models.ManyToManyField(Impact, verbose_name="impact")
     
     def __str__(self):
-        return self.Risk_Name
+        return self.risk_name
 
     class Meta:
         verbose_name = "Risk"
