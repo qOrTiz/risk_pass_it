@@ -89,3 +89,15 @@ class AssessmentAdmin(admin.ModelAdmin):
     #list_editable = ('price', 'quantity')
     save_on_top = True
     save_as = True
+
+
+@admin.register(Dashboard)
+class DashboardAdmin(admin.ModelAdmin):
+    list_display = ('id', 'risk_id', 'assessment_id', 'countermeassures_id')
+    list_filter = ('id', 'risk_id__risk_name')
+    #raw_id_fields = ('category', 'subcategory')
+    search_fields = ('id', )
+    list_display_links = ('id', 'risk_id')
+    #list_editable = ('price', 'quantity')
+    save_on_top = True
+    save_as = True

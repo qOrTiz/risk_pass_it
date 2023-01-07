@@ -305,7 +305,7 @@ class Risk_manager(models.Model):
 
 class Assessment(models.Model):
     risk_id = models.ForeignKey(Risk, verbose_name="risk_id", 
-                            help_text="Probability и Impact", on_delete=models.CASCADE)
+                            help_text="Probabi", on_delete=models.CASCADE)
     material_damage = models.ForeignKey(Material_Damage, verbose_name="material_damage", 
                             help_text="Материальный ущерб", on_delete=models.CASCADE)
     immaterial_damage = models.ForeignKey(Immaterial_Damage, verbose_name="immaterial_damage", 
@@ -333,3 +333,20 @@ class Assessment(models.Model):
     class Meta:
         verbose_name = "Assessment"
         verbose_name_plural = "Assessments"
+
+
+
+class Dashboard(models.Model):
+    risk_id = models.ForeignKey(Risk, verbose_name="risk_id", 
+                            help_text="Цель и описание риска из таблицы Risk", on_delete=models.CASCADE)
+    assessment_id = models.ForeignKey(Assessment, verbose_name="assessment_id", 
+                            help_text="Оценка риска и потерь из таблицы Assessment", on_delete=models.CASCADE)
+    countermeassures_id = models.ForeignKey(Countermeassures, verbose_name="countermeassures_id", 
+                            help_text="Затраты на контрмеры из таблицы Countermeassures", on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.id} {self.risk_id}"
+
+    class Meta:
+        verbose_name = "Dashboard"
+        verbose_name_plural = "Dashboard"        
