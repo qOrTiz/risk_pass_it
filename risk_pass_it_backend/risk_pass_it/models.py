@@ -212,7 +212,7 @@ class Countermeassures(models.Model):
                             help_text="Текущий статус контрмеры", on_delete=models.CASCADE)
     end_countermeasure_implementation = models.ForeignKey(End_Countermeasure_Implementation, verbose_name="end_countermeasure_implementation", 
                             help_text="Дата окончания внедрения контрмеры", on_delete=models.CASCADE)
-    Budget = MoneyField(max_digits=14, decimal_places=2, default_currency='EUR')
+    budget = MoneyField(max_digits=14, decimal_places=2, default_currency='EUR')
     amount_specialists = models.BigIntegerField("amount_specialists",
                                      help_text="Количество специалистов")
     working_time = models.TimeField("working_time", 
@@ -234,3 +234,102 @@ class Countermeassures(models.Model):
     class Meta:
         verbose_name = "Countermeassures"
         verbose_name_plural = "Countermeassures"
+
+
+
+
+
+
+
+
+class Material_Damage(models.Model):
+    
+    text = models.TextField("Text", help_text="Текст", default="0")
+    
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        verbose_name = "Material_Damage"
+        verbose_name_plural = "Material_Damage"
+
+
+class Immaterial_Damage(models.Model):
+    
+    text = models.TextField("Text", help_text="Текст", default="0")
+    
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        verbose_name = "Immaterial_Damage"
+        verbose_name_plural = "Immaterial_Damage"
+
+class Legal_Relevance(models.Model):
+    
+    text = models.TextField("Text", help_text="Текст", default="0")
+    
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        verbose_name = "Legal_Relevance"
+        verbose_name_plural = "Legal_Relevance"
+
+
+class Risk_response_strategie(models.Model):
+    
+    text = models.TextField("Text", help_text="Текст", default="0")
+    
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        verbose_name = "Risk_response_strategie"
+        verbose_name_plural = "Risk_response_strategie"
+
+
+class Risk_manager(models.Model):
+    
+    text = models.TextField("Text", help_text="Текст", default="0")
+    
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        verbose_name = "Risk_manager"
+        verbose_name_plural = "Risk_manager"
+
+
+
+
+class Assessment(models.Model):
+    risk_id = models.ForeignKey(Risk, verbose_name="risk_id", 
+                            help_text="Probability и Impact", on_delete=models.CASCADE)
+    material_damage = models.ForeignKey(Material_Damage, verbose_name="material_damage", 
+                            help_text="Материальный ущерб", on_delete=models.CASCADE)
+    immaterial_damage = models.ForeignKey(Immaterial_Damage, verbose_name="immaterial_damage", 
+                            help_text="Отрицательное влияние", on_delete=models.CASCADE)
+    legal_relevance = models.ForeignKey(Legal_Relevance, verbose_name="legal_relevance", 
+                            help_text="Уровни требований внешнего законодательства", on_delete=models.CASCADE)
+    risk_assessment_score = models.IntegerField("risk_assessment_score",
+                            help_text="Тут ВПР :)")
+    comments = models.TextField("comments",
+                           help_text="Описание способа оценки и т.д.")
+    risk_response_strategie = models.ForeignKey(Risk_response_strategie, verbose_name="risk_response_strategie", 
+                            help_text="Уровни риска", on_delete=models.CASCADE)
+    risk_raiting = models.BigIntegerField("risk_raiting",
+                                     help_text="Рейтинг риска")
+    assessment_date = models.DateField("assessment_date", 
+                            help_text="Дата регистрации риска")
+    review_date = models.DateField("review_date", 
+                            help_text="Дата следующей проверки риска")
+    risk_manager = models.ForeignKey(Risk_manager, verbose_name="risk_manager", 
+                            help_text="Риск менеджер", on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return f"{self.id} {self.risk_id}"
+
+    class Meta:
+        verbose_name = "Assessment"
+        verbose_name_plural = "Assessments"

@@ -52,6 +52,7 @@ class CountermeassuresAdmin(admin.ModelAdmin):
     list_filter = ('name', 'countermeasure_coordinator')
     #raw_id_fields = ('category', 'subcategory')
     search_fields = ('name', 'countermeasure_coordinator', 'description')
+    list_display_links = ('id', 'name')
     #list_editable = ('price', 'quantity')
     save_on_top = True
     save_as = True
@@ -69,3 +70,22 @@ class CountermeassuresAdmin(admin.ModelAdmin):
     #         'fields': ('risk_description', 'probability_max', 'risk_owner', 'registration_date')
     #     }),
     # )
+
+
+admin.site.register(Material_Damage)
+admin.site.register(Immaterial_Damage)
+#admin.site.register(Precondition_Outcome)
+admin.site.register(Legal_Relevance)
+admin.site.register(Risk_response_strategie)
+admin.site.register(Risk_manager)
+
+@admin.register(Assessment)
+class AssessmentAdmin(admin.ModelAdmin):
+    list_display = ('id', 'risk_id')
+    list_filter = ('id', 'risk_id')
+    #raw_id_fields = ('category', 'subcategory')
+    search_fields = ('id', )
+    list_display_links = ('id', 'risk_id')
+    #list_editable = ('price', 'quantity')
+    save_on_top = True
+    save_as = True
