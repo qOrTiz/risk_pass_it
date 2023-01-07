@@ -1,4 +1,5 @@
 from django.db import models
+from djmoney.models.fields import MoneyField
 
 class Probability_Impact(models.Model):
     
@@ -77,6 +78,10 @@ class Department_Object(models.Model):
 
 
 class Risk(models.Model):
+
+
+    test = ""
+    
     risk_name = models.CharField("risk_name", max_length=200,
                             help_text="Название риска")
     risk_object = models.CharField("risk_object", max_length=200,
@@ -100,8 +105,132 @@ class Risk(models.Model):
     impact = models.ManyToManyField(Impact, verbose_name="impact")
     
     def __str__(self):
-        return self.risk_name
-
+        return f"{self.risk_name}" #{' '.join([Impact.objects.filter(id=i.id) for i in ])}"
     class Meta:
         verbose_name = "Risk"
         verbose_name_plural = "Risks"
+
+
+    # def save(self, *args, **kwargs):
+
+    #     super(Risk, self).save(*args, **kwargs)
+    #     self.test = self.impact
+
+
+
+
+
+class Final_assessment_of_effectiveness(models.Model):
+    
+    text = models.TextField("Text", help_text="Текст", default="0")
+    
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        verbose_name = "Final_assessment_of_effectiveness"
+        verbose_name_plural = "Final_assessment_of_effectiveness"
+
+
+class Reduce_Probability(models.Model):
+    
+    text = models.TextField("Text", help_text="Текст", default="0")
+    
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        verbose_name = "Reduce_Probability"
+        verbose_name_plural = "Reduce_Probability"
+
+
+class Precondition_Outcome(models.Model):
+    
+    text = models.TextField("Text", help_text="Текст", default="0")
+    
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        verbose_name = "Precondition_Outcome"
+        verbose_name_plural = "Precondition_Outcome"
+
+
+class Priority_Countermeasure(models.Model):
+    
+    text = models.TextField("Text", help_text="Текст", default="0")
+    
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        verbose_name = "Priority_Countermeasure"
+        verbose_name_plural = "Priority_Countermeasure"
+
+
+class Implementation_Status(models.Model):
+    
+    text = models.TextField("Text", help_text="Текст", default="0")
+    
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        verbose_name = "Implementation_Status"
+        verbose_name_plural = "Implementation_Status"
+
+
+class End_Countermeasure_Implementation(models.Model):
+    
+    text = models.TextField("Text", help_text="Текст", default="0")
+
+    date = models.DateField("date", 
+                            help_text="Дата") 
+    
+    def __str__(self):
+        return self.text
+
+    class Meta:
+        verbose_name = "End_Countermeasure_Implementation"
+        verbose_name_plural = "End_Countermeasure_Implementation"
+
+
+class Countermeassures(models.Model):
+    reduce_probability = models.ForeignKey(Reduce_Probability, verbose_name="reduce_probability", 
+                            help_text="На что направлена мера", on_delete=models.CASCADE)
+    precondition_outcome = models.ForeignKey(Risk, verbose_name="precondition_outcome", 
+                            help_text="Причина риска для контрмеры", on_delete=models.CASCADE)
+    name = models.TextField("name",
+                            help_text="Название контрмеры")
+    countermeasure_coordinator = models.CharField("сountermeasure_coordinator", max_length=200,
+                           help_text="Владелец контрмеры")
+    description = models.TextField("description",
+                           help_text="Описание применяемой контрмеры")
+    priority_countermeasure = models.ForeignKey(Priority_Countermeasure, verbose_name="priority_countermeasure", 
+                            help_text="Приоритет контрмеры", on_delete=models.CASCADE)
+    implementation_status = models.ForeignKey(Implementation_Status, verbose_name="implementation_status", 
+                            help_text="Текущий статус контрмеры", on_delete=models.CASCADE)
+    end_countermeasure_implementation = models.ForeignKey(End_Countermeasure_Implementation, verbose_name="end_countermeasure_implementation", 
+                            help_text="Дата окончания внедрения контрмеры", on_delete=models.CASCADE)
+    Budget = MoneyField(max_digits=14, decimal_places=2, default_currency='EUR')
+    amount_specialists = models.BigIntegerField("amount_specialists",
+                                     help_text="Количество специалистов")
+    working_time = models.TimeField("working_time", 
+                            help_text="Количество рабочего времени в часах")
+    description_effectiveness = models.TextField("description_effectiveness",
+                            help_text="Описание способа и порядка тестирования эффективности")
+    generated_evidences = models.TextField("generated_evidences",
+                            help_text="Подтверждение эффективности")
+    repetition_test = models.BigIntegerField("repetition_test",
+                                     help_text="Частота проверки эффективности")
+    date_last_test = models.DateField("date_last_test", 
+                            help_text="Дата последней проверки эффективности")
+    final_assessment_of_effectiveness = models.ForeignKey(Final_assessment_of_effectiveness, verbose_name="final_assessment_of_effectiveness", 
+                            help_text="Хз чо ето", on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = "Countermeassures"
+        verbose_name_plural = "Countermeassures"

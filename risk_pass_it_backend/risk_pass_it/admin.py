@@ -35,3 +35,37 @@ class RiskAdmin(admin.ModelAdmin):
             'fields': ('risk_description', 'probability_max', 'risk_owner', 'registration_date')
         }),
     )
+
+
+
+
+admin.site.register(Final_assessment_of_effectiveness)
+admin.site.register(Reduce_Probability)
+#admin.site.register(Precondition_Outcome)
+admin.site.register(Priority_Countermeasure)
+admin.site.register(Implementation_Status)
+admin.site.register(End_Countermeasure_Implementation)
+
+@admin.register(Countermeassures)
+class CountermeassuresAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'countermeasure_coordinator')
+    list_filter = ('name', 'countermeasure_coordinator')
+    #raw_id_fields = ('category', 'subcategory')
+    search_fields = ('name', 'countermeasure_coordinator', 'description')
+    #list_editable = ('price', 'quantity')
+    save_on_top = True
+    save_as = True
+    # fieldsets = (
+    #     ('Основные настройки риска', {
+    #         'fields': (('risk_name', 'risk_object',),)
+    #     }),
+    #     ('Настройки департаментов', {
+    #         'fields': ('departament', 'departament_goal', 'department_object')
+    #     }),
+    #     ('Настройки оценки риска', {
+    #         'fields': ('probability', 'impact')
+    #     }),
+    #     ('Настройки', {
+    #         'fields': ('risk_description', 'probability_max', 'risk_owner', 'registration_date')
+    #     }),
+    # )
