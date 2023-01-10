@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets
 from .models import *
 from . import serializers
-
+from rest_framework.decorators import api_view
 
 class RiskList(viewsets.ModelViewSet):
     queryset = Risk.objects.all()
@@ -22,3 +22,11 @@ class CountermeasuresList(viewsets.ModelViewSet):
 class DashboardList(viewsets.ModelViewSet):
     queryset = Dashboard.objects.all()
     serializer_class = serializers.DashboardSerializer
+
+
+
+@api_view(['POST'])
+def dashboard(request):
+    # try:
+    data = json.loads(request.body)
+    print(data)

@@ -93,7 +93,7 @@ class AssessmentAdmin(admin.ModelAdmin):
 
 @admin.register(Dashboard)
 class DashboardAdmin(admin.ModelAdmin):
-    list_display = ('id', 'risk_id', 'assessment_id', 'countermeasures_id')
+    list_display = ('id', 'risk_id', 'assessment_id')
     list_filter = ('id', 'risk_id__risk_name')
     #raw_id_fields = ('category', 'subcategory')
     search_fields = ('id', )
