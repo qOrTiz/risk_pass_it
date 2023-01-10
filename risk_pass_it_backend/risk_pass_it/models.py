@@ -195,7 +195,7 @@ class End_Countermeasure_Implementation(models.Model):
         verbose_name_plural = "End_Countermeasure_Implementation"
 
 
-class Countermeassures(models.Model):
+class Countermeasures(models.Model):
     reduce_probability = models.ForeignKey(Reduce_Probability, verbose_name="reduce_probability", 
                             help_text="На что направлена мера", on_delete=models.CASCADE)
     precondition_outcome = models.ForeignKey(Risk, verbose_name="precondition_outcome", 
@@ -232,8 +232,8 @@ class Countermeassures(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = "Countermeassures"
-        verbose_name_plural = "Countermeassures"
+        verbose_name = "Countermeasures"
+        verbose_name_plural = "Countermeasures"
 
 
 
@@ -341,8 +341,8 @@ class Dashboard(models.Model):
                             help_text="Цель и описание риска из таблицы Risk", on_delete=models.CASCADE)
     assessment_id = models.ForeignKey(Assessment, verbose_name="assessment_id", 
                             help_text="Оценка риска и потерь из таблицы Assessment", on_delete=models.CASCADE)
-    countermeassures_id = models.ForeignKey(Countermeassures, verbose_name="countermeassures_id", 
-                            help_text="Затраты на контрмеры из таблицы Countermeassures", on_delete=models.CASCADE)
+    countermeasures_id = models.ForeignKey(Countermeasures, verbose_name="countermeasures_id", 
+                            help_text="Затраты на контрмеры из таблицы Countermeasures", on_delete=models.CASCADE)
     
     def __str__(self):
         return f"{self.id} {self.risk_id}"

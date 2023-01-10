@@ -46,8 +46,8 @@ admin.site.register(Priority_Countermeasure)
 admin.site.register(Implementation_Status)
 admin.site.register(End_Countermeasure_Implementation)
 
-@admin.register(Countermeassures)
-class CountermeassuresAdmin(admin.ModelAdmin):
+@admin.register(Countermeasures)
+class CountermeasuresAdmin(admin.ModelAdmin):
     list_display = ('id', 'name', 'countermeasure_coordinator')
     list_filter = ('name', 'countermeasure_coordinator')
     #raw_id_fields = ('category', 'subcategory')
@@ -93,7 +93,7 @@ class AssessmentAdmin(admin.ModelAdmin):
 
 @admin.register(Dashboard)
 class DashboardAdmin(admin.ModelAdmin):
-    list_display = ('id', 'risk_id', 'assessment_id', 'countermeassures_id')
+    list_display = ('id', 'risk_id', 'assessment_id', 'countermeasures_id')
     list_filter = ('id', 'risk_id__risk_name')
     #raw_id_fields = ('category', 'subcategory')
     search_fields = ('id', )
