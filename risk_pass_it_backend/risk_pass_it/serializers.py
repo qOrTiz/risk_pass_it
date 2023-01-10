@@ -26,6 +26,9 @@ class CountermeasuresSerializer(serializers.ModelSerializer):
     class Meta:
         model = Countermeasures
         depth = 1
+        # fields = ('id', 'reduce_probability', 'precondition_outcome', 'name', 'countermeasure_coordinator', 'description', 
+        #         'priority_countermeasure', 'implementation_status', 'end_countermeasure_implementation', 'BUDGET',
+        #         'amount_specialists', 'working_time', '')
         fields = '__all__'
 
 

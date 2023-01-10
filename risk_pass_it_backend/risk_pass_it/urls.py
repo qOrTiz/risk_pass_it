@@ -13,7 +13,10 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 #router.register(r'product', views.ProductsList)
-router.register(r'categories', views.CategoriesList)
+router.register(r'risk', views.RiskList)
+router.register(r'assessment', views.AssessmentList)
+router.register(r'countermeasures', views.CountermeasuresList)
+router.register(r'dashboard', views.DashboardList)
 #router.register(r'categoriestree', views.CategoriesTreeList)
 
 urlpatterns = [
@@ -24,8 +27,8 @@ urlpatterns = [
 
     #path('category/<int:product_id>', views.snippet_list),
 
-    path('color/', views.ColorsList.as_view()),
-    path('color/<int:pk>', views.ColorsList.as_view()),
+    # path('risk/', views.RiskList.as_view()),
+    # path('risk/<int:pk>', views.RiskList.as_view()),
 
 
 
